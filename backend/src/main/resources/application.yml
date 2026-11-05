@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: secure-banking-platform
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:mem:bank;DB_CLOSE_DELAY=-1}
+    username: ${DATABASE_USER:sa}
+    password: ${DATABASE_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+security:
+  jwt:
+    # 256-bit base64 key. Override in every real environment.
+    secret: ${JWT_SECRET:ZGV2LW9ubHktc2VjcmV0LWNoYW5nZS1tZS1wbGVhc2UtMzItYnl0ZXMhIQ==}
+    ttl-minutes: ${JWT_TTL_MINUTES:30}
+  encryption:
+    # 256-bit base64 AES key for data at rest. Override in every real environment.
+    key: ${ENCRYPTION_KEY:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}
+  cors:
+    allowed-origin: ${CORS_ORIGIN:http://localhost:4200}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
